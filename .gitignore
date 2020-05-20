@@ -1,0 +1,18 @@
+
+# Libraries
+node_modules
+
+# Local Build
+staticfiles/
+
+# Local Configuration
+.env
+env
+venv
+nasalbum/settings/local.py
+
+# Local Database Files
+/nasalbum/db.sqlite3
+
+# Project Files
+.idea
