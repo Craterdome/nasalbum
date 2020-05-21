@@ -3,14 +3,14 @@
     <img :src="image.url"/>
     <div class="container" v-if="prevImage || nextImage">
       <router-link
-        v-if="prevImage"
+        v-if="prevImage.id"
         :to="{ name: 'image-detail', params: { id: prevImage.id }}"
         style="text-align: left"
       >
         &laquo; Previous image
       </router-link>
       <router-link
-        v-if="nextImage"
+        v-if="nextImage.id"
         :to="{ name: 'image-detail', params: { id: nextImage.id }}"
         style="text-align: right"
       >
@@ -70,9 +70,13 @@ export default {
             this.image = image;
             if (response.data.length >= index + 1) {
               this.nextImage = response.data[index + 1];
+            } else {
+              this.nextImage = {};
             }
             if (index > 0) {
               this.prevImage = response.data[index - 1];
+            } else {
+              this.prevImage = {};
             }
           }
         });
