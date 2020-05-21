@@ -69,7 +69,7 @@ export default {
     fetchData() {
       axios.get('/api/images.json').then((response) => {
         response.data.forEach((image, index) => {
-          if (image.id.toString() === this.$route.params.id) {
+          if (image.id.toString() === this.$route.params.id.toString()) {
             this.image = image;
             if (response.data.length > index + 1) {
               this.nextImage = response.data[index + 1];
