@@ -1,21 +1,39 @@
 <template>
   <div>
     <img :src="image.url"/>
-    <div class="image-metadata">
-      <div>
+    <div class="container" v-if="prevImage || nextImage">
+      <router-link
+        v-if="prevImage"
+        :to="{ name: 'image-detail', params: { id: prevImage.nasaId }}"
+        style="text-align: left"
+      >
+        &laquo; Previous image
+      </router-link>
+      <router-link
+        v-if="nextImage"
+        :to="{ name: 'image-detail', params: { id: nextImage.nasaId }}"
+        style="text-align: right"
+      >
+        Next image &raquo;
+      </router-link>
+    </div>
+    <div class="image-metadata container">
+      <div v-if="image.album">
         <strong>Album: </strong>{{ image.album }}
       </div>
-      <div>
+      <div v-if="image.center">
         <strong>Center: </strong>{{ image.center }}
       </div>
-      <div>
+      <div v-if="image.creator">
         <strong>Creator: </strong>{{ image.creator }}
       </div>
-      <div><strong>Date: </strong>{{ image.dateCreated }}
+      <div v-if="image.dateCreated">
+        <strong>Date: </strong>{{ image.dateCreated }}
       </div>
     </div>
-    <p v-html="image.description"></p>
-    <div class="image-keywords"><strong>Keywords:</strong> {{ keywords }}</div>
+    <p class="container" v-html="image.description"></p>
+    <div class="image-keywords container"><strong>Keywords:</strong> {{ keywords }}</div>
+
   </div>
 </template>
 
@@ -27,20 +45,41 @@ export default {
   data() {
     return {
       image: {},
+      nextImage: {},
+      prevImage: {},
     };
   },
   computed: {
     keywords() {
-      if (this.image) {
+      if (this.image && this.image.keywords) {
         return this.image.keywords.join(', ');
       }
       return '';
     },
   },
+  watch: {
+    // call again the method if the route changes
+    $route: 'fetchData',
+  },
+  methods: {
+    fetchData() {
+      axios.get('/api/images.json').then((response) => {
+        response.data.forEach((image, index) => {
+          if (image.nasaId === this.$route.params.id) {
+            this.image = image;
+            if (response.data.length >= index + 1) {
+              this.nextImage = response.data[index + 1];
+            }
+            if (index > 0) {
+              this.prevImage = response.data[index - 1];
+            }
+          }
+        });
+      });
+    },
+  },
   mounted() {
-    axios.get('/api/images.json').then((response) => {
-      this.image = response.data.find(image => image.nasaId === this.$route.params.id);
-    });
+    this.fetchData();
   },
 };
 </script>
@@ -49,14 +88,14 @@ export default {
 <style scoped>
   img {
     max-width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
   .image-metadata {
     display: flex;
     font-size: .8rem;
   }
   .image-metadata div {
-    flex: 8px;
+    flex: 1;
   }
   p {
     font-size: .9rem;
@@ -66,5 +105,21 @@ export default {
     color: #444;
     font-size: .7rem;
     margin: 1rem;
+  }
+  a {
+    color: #1f69c0;
+    display: inline-block;
+    font-size: .8rem;
+    padding: .2rem 0 1rem;
+    text-decoration: none;
+    width: calc(50% - 4px);
+  }
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+  }
+  p.container {
+    margin: 1rem auto;
   }
 </style>

@@ -1,23 +1,62 @@
 <template>
   <div class="image-grid">
-    <router-link
-      :to="{ name: 'image-detail', params: { id: image.nasaId }}"
-      v-for="image in images" :key="image.url"
-    >
-      <img v-bind:src="image.url" />
-    </router-link>
+    <div class="column">
+      <image-link
+        :image="image"
+        v-for="image in firstColumn"
+        :key="image.url"
+      ></image-link>
+    </div>
+    <div class="column">
+      <image-link
+        :image="image"
+        v-for="image in secondColumn"
+        :key="image.url"
+      ></image-link>
+    </div>
+    <div class="column">
+      <image-link
+        :image="image"
+        v-for="image in thirdColumn"
+        :key="image.url"
+      ></image-link>
+    </div>
+    <div class="column">
+      <image-link
+        :image="image"
+        v-for="image in fourthColumn"
+        :key="image.url"
+      ></image-link>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ImageLink from '@/components/ImageLink';
 
 export default {
   name: 'Album',
+  components: { ImageLink },
   data() {
     return {
       images: [],
     };
+  },
+  computed: {
+    // divide our images into 4 columns for design reasons
+    firstColumn() {
+      return this.images.filter((image, index) => (index + 4) % 4 === 0);
+    },
+    secondColumn() {
+      return this.images.filter((image, index) => (index + 3) % 4 === 0);
+    },
+    thirdColumn() {
+      return this.images.filter((image, index) => (index + 2) % 4 === 0);
+    },
+    fourthColumn() {
+      return this.images.filter((image, index) => (index + 1) % 4 === 0);
+    },
   },
   mounted() {
     axios.get('/api/images.json').then((response) => {
@@ -34,14 +73,24 @@ export default {
     flex-wrap: wrap;
     padding: 0 4px;
   }
-  a {
-    flex: 8px;
-    vertical-align: middle;
-    width: 100%;
+  .column {
+    flex: 25%;
+    max-width: calc(25% - 4px);
+    padding: 0 2px;
   }
-  a img {
-    margin-top: 8px;
-    vertical-align: middle;
-    width: 100%;
+
+  /* Responsive layout */
+  @media screen and (max-width: 800px) {
+    .column {
+      flex: calc(50% - 4px);
+      max-width: calc(50% - 4px);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .column {
+      flex: 100%;
+      max-width: 100%;
+    }
   }
 </style>

@@ -19,6 +19,8 @@ python manage.py runserver
 http://localhost:8000/
 
 http://localhost:8000/swagger/
+
+http://localhost:8000/admin/
 ```bash
 python manage.py test
 ```
