@@ -1,32 +1,36 @@
 <template>
   <div class="image-grid">
     <div class="column">
-      <image-link
-        :image="image"
-        v-for="image in firstColumn"
-        :key="image.url"
-      ></image-link>
+      <div class="sub-column">
+        <image-link
+          :image="image"
+          v-for="image in firstColumn"
+          :key="image.url"
+        ></image-link>
+      </div>
+      <div class="sub-column">
+        <image-link
+          :image="image"
+          v-for="image in secondColumn"
+          :key="image.url"
+        ></image-link>
+      </div>
     </div>
     <div class="column">
-      <image-link
-        :image="image"
-        v-for="image in secondColumn"
-        :key="image.url"
-      ></image-link>
-    </div>
-    <div class="column">
-      <image-link
-        :image="image"
-        v-for="image in thirdColumn"
-        :key="image.url"
-      ></image-link>
-    </div>
-    <div class="column">
-      <image-link
-        :image="image"
-        v-for="image in fourthColumn"
-        :key="image.url"
-      ></image-link>
+      <div class="sub-column">
+        <image-link
+          :image="image"
+          v-for="image in thirdColumn"
+          :key="image.url"
+        ></image-link>
+      </div>
+      <div class="sub-column">
+        <image-link
+          :image="image"
+          v-for="image in fourthColumn"
+          :key="image.url"
+        ></image-link>
+      </div>
     </div>
   </div>
 </template>
@@ -73,7 +77,7 @@ export default {
     flex-wrap: wrap;
     padding: 0 4px;
   }
-  .column {
+  .column, .sub-column {
     flex: 25%;
     max-width: calc(25% - 4px);
     padding: 0 2px;
@@ -84,6 +88,10 @@ export default {
     .column {
       flex: calc(50% - 4px);
       max-width: calc(50% - 4px);
+    }
+    .sub-column {
+      flex: 100%;
+      max-width: 100%;
     }
   }
 

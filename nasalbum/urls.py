@@ -59,10 +59,10 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-    # fallback that serves up the
+    # serve up the static app where appropriate
     urlpatterns += [
         re_path(
-            r"^(?P<path>.*)/$",
+            r"^image/(?P<path>.*)/$",
             serve,
             {"document_root": settings.APP_DIST, "path": "index.html"},
         ),
