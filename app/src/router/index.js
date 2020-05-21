@@ -14,7 +14,7 @@ export default new Router({
       component: ImageGrid,
     },
     {
-      path: '/image/:id/',
+      path: '/image/:id',
       name: 'image-detail',
       component: ImageDetail,
     },

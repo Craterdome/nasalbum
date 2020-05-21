@@ -58,6 +58,9 @@ export default {
       return '';
     },
   },
+  created() {
+    this.fetchData();
+  },
   watch: {
     // call again the method if the route changes
     $route: 'fetchData',
@@ -66,7 +69,7 @@ export default {
     fetchData() {
       axios.get('/api/images.json').then((response) => {
         response.data.forEach((image, index) => {
-          if (image.id === this.$route.params.id) {
+          if (image.id.toString() === this.$route.params.id) {
             this.image = image;
             if (response.data.length > index + 1) {
               this.nextImage = response.data[index + 1];
@@ -82,9 +85,6 @@ export default {
         });
       });
     },
-  },
-  mounted() {
-    this.fetchData();
   },
 };
 </script>
