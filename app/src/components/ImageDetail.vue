@@ -4,14 +4,14 @@
     <div class="container" v-if="prevImage || nextImage">
       <router-link
         v-if="prevImage"
-        :to="{ name: 'image-detail', params: { id: prevImage.nasaId }}"
+        :to="{ name: 'image-detail', params: { id: prevImage.id }}"
         style="text-align: left"
       >
         &laquo; Previous image
       </router-link>
       <router-link
         v-if="nextImage"
-        :to="{ name: 'image-detail', params: { id: nextImage.nasaId }}"
+        :to="{ name: 'image-detail', params: { id: nextImage.id }}"
         style="text-align: right"
       >
         Next image &raquo;
@@ -32,8 +32,9 @@
       </div>
     </div>
     <p class="container" v-html="image.description"></p>
-    <div class="image-keywords container"><strong>Keywords:</strong> {{ keywords }}</div>
-
+    <div v-if="keywords" class="image-keywords container">
+      <strong>Keywords:</strong> {{ keywords }}
+    </div>
   </div>
 </template>
 
@@ -65,7 +66,7 @@ export default {
     fetchData() {
       axios.get('/api/images.json').then((response) => {
         response.data.forEach((image, index) => {
-          if (image.nasaId === this.$route.params.id) {
+          if (image.id === this.$route.params.id) {
             this.image = image;
             if (response.data.length >= index + 1) {
               this.nextImage = response.data[index + 1];

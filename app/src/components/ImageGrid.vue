@@ -5,14 +5,14 @@
         <image-link
           :image="image"
           v-for="image in firstColumn"
-          :key="image.url"
+          :key="image.id"
         ></image-link>
       </div>
       <div class="sub-column">
         <image-link
           :image="image"
           v-for="image in secondColumn"
-          :key="image.url"
+          :key="image.id"
         ></image-link>
       </div>
     </div>
@@ -21,14 +21,14 @@
         <image-link
           :image="image"
           v-for="image in thirdColumn"
-          :key="image.url"
+          :key="image.id"
         ></image-link>
       </div>
       <div class="sub-column">
         <image-link
           :image="image"
           v-for="image in fourthColumn"
-          :key="image.url"
+          :key="image.id"
         ></image-link>
       </div>
     </div>
@@ -75,20 +75,24 @@ export default {
   .image-grid {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 4px;
   }
-  .column, .sub-column {
-    flex: 25%;
-    max-width: calc(25% - 4px);
-    padding: 0 2px;
+  a {
+    display: inline-flex;
+  }
+  .column {
+    display: flex;
+    flex: calc(50%);
+    max-width: calc(50%);
+    padding: 0;
+  }
+  .sub-column {
+    flex: calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    margin: 0 4px;
   }
 
   /* Responsive layout */
   @media screen and (max-width: 800px) {
-    .column {
-      flex: calc(50% - 4px);
-      max-width: calc(50% - 4px);
-    }
     .sub-column {
       flex: 100%;
       max-width: 100%;

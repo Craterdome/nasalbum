@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'image-detail', params: { id: image.nasaId }}">
+  <router-link :to="{ name: 'image-detail', params: { id: image.id }}">
     <img v-bind:src="image.url" />
   </router-link>
 </template>
