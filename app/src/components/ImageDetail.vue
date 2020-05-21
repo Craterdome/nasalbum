@@ -2,20 +2,24 @@
   <div>
     <img :src="image.url"/>
     <div class="container" v-if="prevImage || nextImage">
-      <router-link
-        v-if="prevImage.id"
-        :to="{ name: 'image-detail', params: { id: prevImage.id }}"
-        style="text-align: left"
-      >
-        &laquo; Previous image
-      </router-link>
-      <router-link
-        v-if="nextImage.id"
-        :to="{ name: 'image-detail', params: { id: nextImage.id }}"
-        style="text-align: right"
-      >
-        Next image &raquo;
-      </router-link>
+      <div style="display: table; width: 100%;">
+        <div style="display: table-cell; text-align: left;">
+          <router-link
+            v-if="prevImage.id"
+            :to="{ name: 'image-detail', params: { id: prevImage.id }}"
+          >
+            &laquo; Previous image
+          </router-link>
+        </div>
+        <div style="display: table-cell; text-align: right;">
+          <router-link
+            v-if="nextImage.id"
+            :to="{ name: 'image-detail', params: { id: nextImage.id }}"
+          >
+            Next image &raquo;
+          </router-link>
+        </div>
+      </div>
     </div>
     <div class="image-metadata container">
       <div v-if="image.album">

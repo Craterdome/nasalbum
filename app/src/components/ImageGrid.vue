@@ -74,7 +74,6 @@ export default {
 <style scoped>
   .image-grid {
     display: flex;
-    flex-wrap: wrap;
   }
   a {
     display: inline-flex;
@@ -82,6 +81,7 @@ export default {
   .column {
     display: flex;
     flex: calc(50%);
+    flex-flow: wrap;
     max-width: calc(50%);
     padding: 0;
   }
@@ -93,15 +93,19 @@ export default {
 
   /* Responsive layout */
   @media screen and (max-width: 800px) {
+    .column {
+      display: block;
+    }
     .sub-column {
-      flex: 100%;
-      max-width: 100%;
+      max-width: calc(100% - 8px);
     }
   }
 
   @media screen and (max-width: 600px) {
+    .image-grid {
+      display: block;
+    }
     .column {
-      flex: 100%;
       max-width: 100%;
     }
   }
