@@ -68,7 +68,7 @@ export default {
         response.data.forEach((image, index) => {
           if (image.id === this.$route.params.id) {
             this.image = image;
-            if (response.data.length >= index + 1) {
+            if (response.data.length > index + 1) {
               this.nextImage = response.data[index + 1];
             } else {
               this.nextImage = {};
