@@ -53,7 +53,7 @@ urlpatterns = [
     ),
     url(r"^api/", include(router.urls)),
     url(r"^silk/", include("silk.urls", namespace="silk")),
-    path("^admin/", admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:
