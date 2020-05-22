@@ -3,7 +3,7 @@
 node_modules
 
 # Local Build
-nasalbum/media/
+# nasalbum/media/  # we're only allowing this due to heroku issues
 nasalbum/staticfiles/
 
 # Local Configuration
