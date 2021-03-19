@@ -3,7 +3,7 @@ whitenoise==4.1.2  # https://github.com/evansd/whitenoise
 
 # Django
 # ------------------------------------------------------------------------------
-Django==2.2.11
+Django==2.2.18
 django-reversion==3.0.4  # https://github.com/etianen/django-reversion
 django-silk==4.0.1  # https://github.com/jazzband/django-silk
 django-cors-headers==3.3.0  # https://github.com/adamchainz/django-cors-headers
